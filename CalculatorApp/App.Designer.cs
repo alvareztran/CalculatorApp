@@ -123,10 +123,10 @@
             this.resultBox.BackColor = System.Drawing.Color.DodgerBlue;
             this.resultBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.resultBox.Font = new System.Drawing.Font("Times New Roman", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.resultBox.Location = new System.Drawing.Point(492, 142);
+            this.resultBox.Location = new System.Drawing.Point(66, 142);
             this.resultBox.Name = "resultBox";
             this.resultBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.resultBox.Size = new System.Drawing.Size(255, 38);
+            this.resultBox.Size = new System.Drawing.Size(681, 38);
             this.resultBox.TabIndex = 37;
             this.resultBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -445,6 +445,7 @@
             this.reciprocalBtn.TabIndex = 15;
             this.reciprocalBtn.Text = "1/x";
             this.reciprocalBtn.UseVisualStyleBackColor = false;
+            this.reciprocalBtn.Click += new System.EventHandler(this.Function_Click);
             this.reciprocalBtn.MouseEnter += new System.EventHandler(this.Button_Enter);
             this.reciprocalBtn.MouseLeave += new System.EventHandler(this.Button_Leave);
             // 
@@ -458,6 +459,7 @@
             this.sqrtBtn.TabIndex = 14;
             this.sqrtBtn.Text = "√";
             this.sqrtBtn.UseVisualStyleBackColor = false;
+            this.sqrtBtn.Click += new System.EventHandler(this.sqrtBtn_Click);
             this.sqrtBtn.MouseEnter += new System.EventHandler(this.Button_Enter);
             this.sqrtBtn.MouseLeave += new System.EventHandler(this.Button_Leave);
             // 
@@ -484,6 +486,7 @@
             this.factBtn.TabIndex = 12;
             this.factBtn.Text = "x!";
             this.factBtn.UseVisualStyleBackColor = false;
+            this.factBtn.Click += new System.EventHandler(this.factBtn_Click);
             this.factBtn.MouseEnter += new System.EventHandler(this.Button_Enter);
             this.factBtn.MouseLeave += new System.EventHandler(this.Button_Leave);
             // 
@@ -510,6 +513,7 @@
             this.tanBtn.TabIndex = 10;
             this.tanBtn.Text = "tan";
             this.tanBtn.UseVisualStyleBackColor = false;
+            this.tanBtn.Click += new System.EventHandler(this.Function_Click);
             this.tanBtn.MouseEnter += new System.EventHandler(this.Button_Enter);
             this.tanBtn.MouseLeave += new System.EventHandler(this.Button_Leave);
             // 
@@ -523,6 +527,7 @@
             this.cosBtn.TabIndex = 9;
             this.cosBtn.Text = "cos";
             this.cosBtn.UseVisualStyleBackColor = false;
+            this.cosBtn.Click += new System.EventHandler(this.Function_Click);
             this.cosBtn.MouseEnter += new System.EventHandler(this.Button_Enter);
             this.cosBtn.MouseLeave += new System.EventHandler(this.Button_Leave);
             // 
@@ -536,6 +541,7 @@
             this.sinBtn.TabIndex = 8;
             this.sinBtn.Text = "sin";
             this.sinBtn.UseVisualStyleBackColor = false;
+            this.sinBtn.Click += new System.EventHandler(this.Function_Click);
             this.sinBtn.MouseEnter += new System.EventHandler(this.Button_Enter);
             this.sinBtn.MouseLeave += new System.EventHandler(this.Button_Leave);
             // 
@@ -547,7 +553,7 @@
             this.degBtn.Name = "degBtn";
             this.degBtn.Size = new System.Drawing.Size(85, 60);
             this.degBtn.TabIndex = 7;
-            this.degBtn.Text = "Deg";
+            this.degBtn.Text = "Rad";
             this.degBtn.UseVisualStyleBackColor = false;
             this.degBtn.Click += new System.EventHandler(this.degBtn_Click);
             this.degBtn.MouseEnter += new System.EventHandler(this.Button_Enter);
@@ -589,6 +595,7 @@
             this.logBtn.TabIndex = 4;
             this.logBtn.Text = "log";
             this.logBtn.UseVisualStyleBackColor = false;
+            this.logBtn.Click += new System.EventHandler(this.Function_Click);
             this.logBtn.MouseEnter += new System.EventHandler(this.Button_Enter);
             this.logBtn.MouseLeave += new System.EventHandler(this.Button_Leave);
             // 
@@ -602,6 +609,7 @@
             this.lnBtn.TabIndex = 3;
             this.lnBtn.Text = "ln";
             this.lnBtn.UseVisualStyleBackColor = false;
+            this.lnBtn.Click += new System.EventHandler(this.Function_Click);
             this.lnBtn.MouseEnter += new System.EventHandler(this.Button_Enter);
             this.lnBtn.MouseLeave += new System.EventHandler(this.Button_Leave);
             // 

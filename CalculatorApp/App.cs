@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CalculatorApp.Calculator;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,18 +14,26 @@ namespace CalculatorApp
 {
     public partial class App : Form
     {
-        bool degMode;
+        bool angleMode;
         bool InvMode;
+
+        private ExpressionParser parser;
+
         public App()
         {
             InitializeComponent();
 
-            degMode = true;
+            angleMode = true;
             InvMode = true;
+
+            parser = new ExpressionParser(angleMode);
 
             screenBox.Text = "";
         }
 
+        
+        
+        
         /* BUTTONs HOVERED */
         private void Button_Enter(object sender, EventArgs e)
         {
@@ -45,6 +54,9 @@ namespace CalculatorApp
         }
 
 
+
+
+
         /* NUMBER BUTTONs CLICKED */
         private void Number_Click(object sender, EventArgs e)
         {
@@ -58,12 +70,18 @@ namespace CalculatorApp
         }
 
 
+
+
+
         /* OPERATOR BUTTONs CLICKED */
         private void Operator_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
             screenBox.Text += btn.Text;
         }
+
+
+
 
 
         /* DOT BUTTON CLICKED */
@@ -73,12 +91,15 @@ namespace CalculatorApp
         }
 
 
+
+
+
         /* EQUAL BUTTON CLICKED */
         private void equalBtn_Click(object sender, EventArgs e)
         {
             try
             {
-                double res = evaluate(screenBox.Text);
+                double res = parser.Evaluate(screenBox.Text);
                 resultBox.Text = res.ToString();
             }
             catch (DivideByZeroException ex)
@@ -91,6 +112,9 @@ namespace CalculatorApp
             }
         }
 
+
+        
+        
 
         /* CLEAR | DELETE BUTTON CLICKED */
         private void clearBtn_Click(object sender, EventArgs e)
@@ -108,6 +132,11 @@ namespace CalculatorApp
             resultBox.Clear();
         }
 
+        
+        
+
+
+        /* OTHER BUTTONs CLICKED */
         private void openParenthesisBtn_Click(object sender, EventArgs e)
         {
             screenBox.Text += "(";
@@ -118,21 +147,20 @@ namespace CalculatorApp
             screenBox.Text += ")";
         }
 
-
         private void degBtn_Click(object sender, EventArgs e)
         {
-            degMode = !degMode;
-            if (degMode)
-            {
-                degBtn.Text = "Deg";
-            }
-            else
+            angleMode = !angleMode;
+            if (angleMode)
             {
                 degBtn.Text = "Rad";
             }
+            else
+            {
+                degBtn.Text = "Deg";
+            }
+            parser.angleMode = angleMode;
         }
 
-        /* OTHER BUTTONs CLICKED */
         private void InvBtn_Click(object sender, EventArgs e)
         {
             InvMode = !InvMode;
@@ -158,186 +186,20 @@ namespace CalculatorApp
             }
         }
 
-
-        /* SUPPORTED CALCULATION FUNCTIONS */
-        private bool isNumChar(char c)
+        private void Function_Click(object sender, EventArgs e)
         {
-            return c >= '0' && c <= '9';
+            Button btn = (Button)sender;
+            screenBox.Text += btn.Text + "(";
         }
 
-        private bool isOperator(char c)
+        private void factBtn_Click(object sender, EventArgs e)
         {
-            return c == '+' || c == '-' || c == '*' || c == '/';
+            screenBox.Text += "factorial(";
         }
 
-        private double add(double a, double b)
+        private void sqrtBtn_Click(object sender, EventArgs e)
         {
-            return a + b;
+            screenBox.Text += "sqrt(";
         }
-
-        private double subtract(double a, double b)
-        {
-            return a - b;
-        }
-
-        private double multiply(double a, double b)
-        {
-            return a * b;
-        }
-
-        private double divide(double a, double b)
-        {
-            return a / b;
-        }
-
-        private double calculate(double a, double b, char opr)
-        {
-            double res = 0;
-
-            switch (opr)
-            {
-                case '+':
-                    return add(a, b);
-                case '-':
-                    return subtract(a, b);
-                case '*':
-                    return multiply(a, b);
-                case '/':
-                    if (b == 0)
-                    {
-                        throw new DivideByZeroException();
-                    }
-                    return divide(a, b);
-            }
-
-            return res;
-        }
-
-        private double convertToDouble(string st)
-        {
-            return double.Parse(st);
-        }
-
-        private double processFactor(string expression, ref int i)
-        {
-            if (i >= expression.Length)
-            {
-                throw new Exception("Invalid expression.");
-            }
-
-            if (expression[i] == '-')
-            {
-                i++;
-                return -processFactor(expression, ref i);
-            }
-
-            if (expression[i] == '(')
-            {
-                i++;
-                double res = processExpression(expression, ref i);
-
-                if (i >= expression.Length || expression[i] != ')')
-                {
-                    throw new Exception("Invalid expression.");
-                }
-
-                i++;
-                return res;
-            }
-
-            if (isNumChar(expression[i]))
-            {
-                int start = i;
-                bool hasDot = false;
-
-                while (i < expression.Length
-                    && (isNumChar(expression[i]) || expression[i] == '.'))
-                {
-                    if (expression[i] == '.')
-                    {
-                        if (hasDot)
-                        {
-                            throw new Exception("Invalid expression.");
-                        }
-                        else
-                        {
-                            hasDot = true;
-                        }
-                    }
-                    i++;
-                }
-
-                return convertToDouble(expression.Substring(start, i - start));
-            }
-            throw new Exception("Invalid expression.");
-        }
-
-        private double processTerm(string expression, ref int i)
-        {
-            double res = processFactor(expression, ref i);
-
-            while (i < expression.Length && expression[i] != ')')
-            {
-                char opr = expression[i];
-
-                if (opr != '*' && opr != '/')
-                {
-                    break;
-                }
-
-                i++;
-
-                double next = processFactor(expression, ref i);
-
-                res = calculate(res, next, opr);
-            }
-
-            return res;
-        }
-
-        private double processExpression(string expression, ref int i)
-        {
-            double res = processTerm(expression, ref i);
-
-            while (i < expression.Length && expression[i] != ')')
-            {
-                char opr = expression[i];
-
-                if (opr != '+' && opr != '-')
-                {
-                    throw new Exception("Invalid expression.");
-                }
-
-                i++;
-
-                double next = processTerm(expression, ref i);
-
-                res = calculate(res, next, opr);
-            }
-
-            return res;
-        }
-
-        private double evaluate(string expression)
-        {
-
-            if (expression.Length == 0)
-            {
-                throw new Exception("Invalid expression.");
-            }
-
-            int i = 0;
-            double res = processExpression(expression, ref i);
-
-            if (i != expression.Length)
-            {
-                throw new Exception("Invalid expression.");
-            }
-
-
-            return res;
-        }
-
-        
     } 
 }
