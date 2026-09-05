@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CalculatorApp.Calculator
 {
@@ -46,6 +47,7 @@ namespace CalculatorApp.Calculator
                     return MathOperations.Divide(a, b);
                 case '^':
                     return MathOperations.Power(a, b);
+
                 default:
                     throw new Exception("Unknown operator.");
             }
@@ -79,10 +81,22 @@ namespace CalculatorApp.Calculator
                 return res;
             }
 
+            if (expression[i] == 'π')
+            {
+                i += 1;
+                return Math.PI;
+            }
+
             if ((expression[i] >= 'a' && expression[i] <= 'z') 
                 || (expression[i] >= 'A' && expression[i] <= 'Z'))
             {
                 return ProcessFunction(expression, ref i);
+            }
+
+            if (expression[i] == 'e')
+            {
+                i++;
+                return Math.E;
             }
 
             if (IsNumChar(expression[i]))
@@ -111,9 +125,31 @@ namespace CalculatorApp.Calculator
             throw new Exception("Invalid expression.");
         }
 
-        private double ProcessTerm(string expression, ref int i)
+        private double ProcessPower(string expression, ref int i)
         {
             double res = ProcessFactor(expression, ref i);
+
+            while (i < expression.Length && expression[i] == '^')
+            {
+                i++;
+
+                double next = ProcessPower(expression, ref i);
+
+                res = Calculate(res, next, '^');
+            }
+
+            if (i < expression.Length && expression[i] == '%')
+            {
+                i++;
+                res = MathOperations.Percent(res);
+            }
+
+            return res;
+        }
+
+        private double ProcessTerm(string expression, ref int i)
+        {
+            double res = ProcessPower(expression, ref i);
 
             while (i < expression.Length && expression[i] != ')')
             {
@@ -125,7 +161,7 @@ namespace CalculatorApp.Calculator
                 }
 
                 i++;
-                double next = ProcessFactor(expression, ref i);
+                double next = ProcessPower(expression, ref i);
 
                 res = Calculate(res, next, opr);
             }
@@ -143,12 +179,12 @@ namespace CalculatorApp.Calculator
                 
                 if (opr != '+' && opr != '-')
                 {
-                    throw new Exception("Invalid expression.");
+                    break;
                 }
 
                 i++;
                 double next = ProcessTerm(expression, ref i);
-                
+
                 res = Calculate(res, next, opr);
             }
 
@@ -220,6 +256,30 @@ namespace CalculatorApp.Calculator
 
                 case "reciprocal":
                     return MathOperations.Reciprocal(value);
+
+                case "exp":
+                    return MathOperations.Exp(value);
+
+                case "arcsin":
+                    if (angleMode)
+                    {
+                        return MathOperations.Asin(value) * 180 / Math.PI;
+                    }
+                    return MathOperations.Asin(value);
+
+                case "arccos":
+                    if (!angleMode)
+                    {
+                        return MathOperations.Acos(value) * 180 / Math.PI;
+                    }
+                    return MathOperations.Acos(value);
+
+                case "arctan":
+                    if (!angleMode)
+                    {
+                        return MathOperations.Atan(value) * 180 / Math.PI;
+                    }
+                    return MathOperations.Atan(value);
 
                 default:
                     throw new Exception("Unknown function.");

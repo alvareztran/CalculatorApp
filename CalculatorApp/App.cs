@@ -166,23 +166,15 @@ namespace CalculatorApp
             InvMode = !InvMode;
             if (InvMode)
             {
-                lnBtn.Text = "ln";
-                logBtn.Text = "log";
-                powBtn.Text = "^";
                 sinBtn.Text = "sin";
                 cosBtn.Text = "cos";
                 tanBtn.Text = "tan";
-                sqrtBtn.Text = "√";
             }
             else
             {
-                lnBtn.Text = "e^";
-                logBtn.Text = "10^";
-                powBtn.Text = "y√x";
                 sinBtn.Text = "sin⁻¹";
                 cosBtn.Text = "cos⁻¹";
                 tanBtn.Text = "tan⁻¹";
-                sqrtBtn.Text = "x²";
             }
         }
 
@@ -200,6 +192,34 @@ namespace CalculatorApp
         private void sqrtBtn_Click(object sender, EventArgs e)
         {
             screenBox.Text += "sqrt(";
+        }
+
+        private void powBtn_Click(object sender, EventArgs e)
+        {
+            screenBox.Text += "^";
+        }
+
+        private void reciprocalBtn_Click(object sender, EventArgs e)
+        {
+            screenBox.Text += "reciprocal(";
+        }
+
+        private void expBtn_Click(object sender, EventArgs e)
+        {
+            screenBox.Text += "exp(";
+        }
+
+        private void trigonometricFuncBtn_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            if (InvMode)
+            {
+                screenBox.Text += btn.Text + "(";
+            }
+            else
+            {
+                screenBox.Text += "arc" + btn.Text.Remove(3,2) + "(";
+            }
         }
     } 
 }

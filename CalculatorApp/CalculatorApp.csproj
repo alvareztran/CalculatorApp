@@ -52,7 +52,6 @@
     <Compile Include="App.Designer.cs">
       <DependentUpon>App.cs</DependentUpon>
     </Compile>
-    <Compile Include="Calculator\Calculator.cs" />
     <Compile Include="Calculator\ExpressionParser.cs" />
     <Compile Include="Calculator\MathOperations.cs" />
     <Compile Include="Program.cs" />

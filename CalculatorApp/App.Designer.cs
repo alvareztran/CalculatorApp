@@ -432,6 +432,7 @@
             this.eBtn.TabIndex = 16;
             this.eBtn.Text = "e";
             this.eBtn.UseVisualStyleBackColor = false;
+            this.eBtn.Click += new System.EventHandler(this.Number_Click);
             this.eBtn.MouseEnter += new System.EventHandler(this.Button_Enter);
             this.eBtn.MouseLeave += new System.EventHandler(this.Button_Leave);
             // 
@@ -445,7 +446,7 @@
             this.reciprocalBtn.TabIndex = 15;
             this.reciprocalBtn.Text = "1/x";
             this.reciprocalBtn.UseVisualStyleBackColor = false;
-            this.reciprocalBtn.Click += new System.EventHandler(this.Function_Click);
+            this.reciprocalBtn.Click += new System.EventHandler(this.reciprocalBtn_Click);
             this.reciprocalBtn.MouseEnter += new System.EventHandler(this.Button_Enter);
             this.reciprocalBtn.MouseLeave += new System.EventHandler(this.Button_Leave);
             // 
@@ -473,6 +474,7 @@
             this.percentBtn.TabIndex = 13;
             this.percentBtn.Text = "%";
             this.percentBtn.UseVisualStyleBackColor = false;
+            this.percentBtn.Click += new System.EventHandler(this.Number_Click);
             this.percentBtn.MouseEnter += new System.EventHandler(this.Button_Enter);
             this.percentBtn.MouseLeave += new System.EventHandler(this.Button_Leave);
             // 
@@ -498,8 +500,9 @@
             this.piBtn.Name = "piBtn";
             this.piBtn.Size = new System.Drawing.Size(85, 60);
             this.piBtn.TabIndex = 11;
-            this.piBtn.Text = "π ";
+            this.piBtn.Text = "π";
             this.piBtn.UseVisualStyleBackColor = false;
+            this.piBtn.Click += new System.EventHandler(this.Number_Click);
             this.piBtn.MouseEnter += new System.EventHandler(this.Button_Enter);
             this.piBtn.MouseLeave += new System.EventHandler(this.Button_Leave);
             // 
@@ -513,7 +516,7 @@
             this.tanBtn.TabIndex = 10;
             this.tanBtn.Text = "tan";
             this.tanBtn.UseVisualStyleBackColor = false;
-            this.tanBtn.Click += new System.EventHandler(this.Function_Click);
+            this.tanBtn.Click += new System.EventHandler(this.trigonometricFuncBtn_Click);
             this.tanBtn.MouseEnter += new System.EventHandler(this.Button_Enter);
             this.tanBtn.MouseLeave += new System.EventHandler(this.Button_Leave);
             // 
@@ -527,7 +530,7 @@
             this.cosBtn.TabIndex = 9;
             this.cosBtn.Text = "cos";
             this.cosBtn.UseVisualStyleBackColor = false;
-            this.cosBtn.Click += new System.EventHandler(this.Function_Click);
+            this.cosBtn.Click += new System.EventHandler(this.trigonometricFuncBtn_Click);
             this.cosBtn.MouseEnter += new System.EventHandler(this.Button_Enter);
             this.cosBtn.MouseLeave += new System.EventHandler(this.Button_Leave);
             // 
@@ -541,7 +544,7 @@
             this.sinBtn.TabIndex = 8;
             this.sinBtn.Text = "sin";
             this.sinBtn.UseVisualStyleBackColor = false;
-            this.sinBtn.Click += new System.EventHandler(this.Function_Click);
+            this.sinBtn.Click += new System.EventHandler(this.trigonometricFuncBtn_Click);
             this.sinBtn.MouseEnter += new System.EventHandler(this.Button_Enter);
             this.sinBtn.MouseLeave += new System.EventHandler(this.Button_Leave);
             // 
@@ -569,6 +572,7 @@
             this.expBtn.TabIndex = 6;
             this.expBtn.Text = "Exp";
             this.expBtn.UseVisualStyleBackColor = false;
+            this.expBtn.Click += new System.EventHandler(this.expBtn_Click);
             this.expBtn.MouseEnter += new System.EventHandler(this.Button_Enter);
             this.expBtn.MouseLeave += new System.EventHandler(this.Button_Leave);
             // 
@@ -582,6 +586,7 @@
             this.powBtn.TabIndex = 5;
             this.powBtn.Text = "^";
             this.powBtn.UseVisualStyleBackColor = false;
+            this.powBtn.Click += new System.EventHandler(this.powBtn_Click);
             this.powBtn.MouseEnter += new System.EventHandler(this.Button_Enter);
             this.powBtn.MouseLeave += new System.EventHandler(this.Button_Leave);
             // 
@@ -659,6 +664,7 @@
             this.Controls.Add(this.Panel1);
             this.Name = "App";
             this.Text = "Form1";
+            this.Click += new System.EventHandler(this.trigonometricFuncBtn_Click);
             this.Panel1.ResumeLayout(false);
             this.Panel1.PerformLayout();
             this.ResumeLayout(false);

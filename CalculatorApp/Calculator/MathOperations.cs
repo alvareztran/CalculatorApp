@@ -119,5 +119,33 @@ namespace CalculatorApp.Calculator
         {
             return value / 100;
         }
+
+        public static double Exp(double x)
+        {
+            return Math.Exp(x);
+        }
+
+        public static double Asin(double value)
+        {
+            if (value < -1 || value > 1)
+            {
+                throw new ArgumentException("Invalid value.");
+            }
+            return Math.Asin(value);
+        }
+
+        public static double Acos(double value)
+        {
+            if (value < -1 || value > 1)
+            {
+                throw new ArgumentException("Invalid value.");
+            }
+            return Math.Acos(value);
+        }
+
+        public static double Atan(double value)
+        {
+            return Math.Atan(value);
+        }
     }
 }
